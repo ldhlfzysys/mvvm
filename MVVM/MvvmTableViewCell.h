@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MvvmTableViewCell : UITableViewCell
-
+@property (nonatomic,strong)UILabel *nameLabel;
+@property (nonatomic,strong)UILabel *contentLabel;
+@property (nonatomic,strong)UIImageView *line;
 @end

@@ -10,15 +10,31 @@
 
 @implementation MvvmTableViewCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        _nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, self.frame.size.width - 20, 20)];
+        _nameLabel.font = [UIFont systemFontOfSize:18];
+        _nameLabel.textColor = [UIColor blackColor];
+        [self addSubview:_nameLabel];
+        
+        _contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 35, self.frame.size.width - 20, 0)];
+        _contentLabel.font = [UIFont systemFontOfSize:15];
+        _contentLabel.numberOfLines = 0;
+        _contentLabel.textColor = [UIColor blackColor];
+        [self addSubview:_nameLabel];
+        
+        _line = [[UIImageView alloc]initWithFrame:CGRectMake(0, _contentLabel.frame.origin.y + _contentLabel.frame.size.height + 9, self.frame.size.width, 1)];
+        _line.backgroundColor = [UIColor blackColor];
+        [self addSubview:_line];
+    }
+    return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (CGFloat)heightOfContet
+{
+    CGRect rect = [_contentLabel.text boundingRectWithSize:CGSizeMake(self.frame.size.width - 20, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:_contentLabel.font} context:nil];
+    return rect.size.height;
 }
 
 @end

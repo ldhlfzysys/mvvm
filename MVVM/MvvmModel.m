@@ -9,5 +9,9 @@
 #import "MvvmModel.h"
 
 @implementation MvvmModel
-
+- (void)updateFromDict:(NSDictionary *)dict
+{
+    self.name = [dict objectForKey:@"name"];
+    self.content = [dict objectForKey:@"content"];
+}
 @end

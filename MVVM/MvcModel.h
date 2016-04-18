@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface MvcModel : NSObject
-
+@property (nonatomic,copy)NSString *name;
+@property (nonatomic,copy)NSString *content;
 @end

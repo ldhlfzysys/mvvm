@@ -10,6 +10,6 @@
 
 @interface MockNetWorkManager : NSObject
 + (instancetype)shareManager;
-+ (NSArray *)loadData;
-+ (NSArray *)loadMoreData;
+- (NSArray *)loadData;
+- (NSArray *)loadMoreData;
 @end

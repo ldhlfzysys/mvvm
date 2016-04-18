@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MvvmTableViewCell.h"
+#import "MvvmModel.h"
 
 @interface MvvmViewModel : NSObject
+@property(nonatomic,strong) NSMutableArray *datas;
 
+- (void)loadFromNetWork;
+- (void)loadMoreFromNetWork;
 @end
