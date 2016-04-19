@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MvcTableViewController : UITableViewController
+@interface MvcTableViewController : BaseTableViewController
 
 @end

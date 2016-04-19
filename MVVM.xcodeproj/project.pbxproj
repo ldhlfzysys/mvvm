@@ -20,6 +20,8 @@
 		B88BD33E1CC4FCCA00781975 /* MvvmModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B88BD33D1CC4FCCA00781975 /* MvvmModel.m */; };
 		B88BD3441CC4FCEE00781975 /* MvvmTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B88BD3431CC4FCEE00781975 /* MvvmTableViewCell.m */; };
 		B88BD3471CC4FF7300781975 /* MockNetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B88BD3461CC4FF7300781975 /* MockNetWorkManager.m */; };
+		B88BD34E1CC5C8E300781975 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88BD34D1CC5C8E300781975 /* ProfileViewController.m */; };
+		B88BD3591CC6245D00781975 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B88BD3581CC6245D00781975 /* BaseTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,10 @@
 		B88BD3451CC4FF7300781975 /* MockNetWorkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockNetWorkManager.h; sourceTree = "<group>"; };
 		B88BD3461CC4FF7300781975 /* MockNetWorkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockNetWorkManager.m; sourceTree = "<group>"; };
 		B88BD3481CC501A300781975 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		B88BD34C1CC5C8E300781975 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		B88BD34D1CC5C8E300781975 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		B88BD3571CC6245D00781975 /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
+		B88BD3581CC6245D00781975 /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +91,10 @@
 				B88BD3141CC4FB8D00781975 /* AppDelegate.m */,
 				B88BD3451CC4FF7300781975 /* MockNetWorkManager.h */,
 				B88BD3461CC4FF7300781975 /* MockNetWorkManager.m */,
+				B88BD34C1CC5C8E300781975 /* ProfileViewController.h */,
+				B88BD34D1CC5C8E300781975 /* ProfileViewController.m */,
+				B88BD3571CC6245D00781975 /* BaseTableViewController.h */,
+				B88BD3581CC6245D00781975 /* BaseTableViewController.m */,
 				B88BD3291CC4FBE000781975 /* MVVM */,
 				B88BD3281CC4FBD800781975 /* MVC */,
 				B88BD3271CC4FBAD00781975 /* WildDemo */,
@@ -219,6 +229,8 @@
 				B88BD3381CC4FCAC00781975 /* MvcTableViewCell.m in Sources */,
 				B88BD3441CC4FCEE00781975 /* MvvmTableViewCell.m in Sources */,
 				B88BD33B1CC4FCBE00781975 /* MvvmViewModel.m in Sources */,
+				B88BD3591CC6245D00781975 /* BaseTableViewController.m in Sources */,
+				B88BD34E1CC5C8E300781975 /* ProfileViewController.m in Sources */,
 				B88BD3151CC4FB8D00781975 /* AppDelegate.m in Sources */,
 				B88BD3121CC4FB8D00781975 /* main.m in Sources */,
 				B88BD3321CC4FC4B00781975 /* WildTableViewController.m in Sources */,

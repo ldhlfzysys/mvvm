@@ -11,4 +11,5 @@
 @interface MvcModel : NSObject
 @property (nonatomic,copy)NSString *name;
 @property (nonatomic,copy)NSString *content;
+- (void)updateFromDict:(NSDictionary *)dict;
 @end

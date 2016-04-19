@@ -20,13 +20,6 @@
     _datas = [[NSMutableArray alloc]init];
     [_datas addObjectsFromArray:[[MockNetWorkManager shareManager] loadData]];
     
-    self.tableView.backgroundColor = [UIColor whiteColor];
-    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-    self.title = @"Wild";
-    
-    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"加载" style:UIBarButtonItemStyleDone target:self action:@selector(loadMore)];
-    self.navigationItem.rightBarButtonItem = item;
-    
     [self.tableView reloadData];
 }
 
@@ -54,6 +47,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"mCell"];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     /*
      由于nameLabel等都是重新创建的，在cell重用的时候，需要移除所有子View
      */
@@ -64,7 +58,7 @@
     NSString *name_ = [dict objectForKey:@"name"];
     NSString *content_ = [dict objectForKey:@"content"];
     
-    UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, self.tableView.frame.size.width - 20, 20)];
+    UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH - 20, 20)];
     nameLabel.font = [UIFont systemFontOfSize:18];
     nameLabel.textColor = [UIColor blackColor];
     nameLabel.text = name_;
@@ -74,7 +68,7 @@
     }
     [cell addSubview:nameLabel];
     
-    UILabel *contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 35, self.tableView.frame.size.width - 20, 0)];
+    UILabel *contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 35, SCREEN_WIDTH - 20, 0)];
     contentLabel.font = [UIFont systemFontOfSize:15];
     contentLabel.numberOfLines = 0;
     contentLabel.textColor = [UIColor blackColor];
@@ -82,11 +76,32 @@
     [contentLabel sizeToFit];
     [cell addSubview:contentLabel];
     
-    UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(0, contentLabel.frame.origin.y + contentLabel.frame.size.height + 9, self.tableView.frame.size.width, 1)];
+    UIButton *likeButton = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 50, 12.5, 40, 15)];
+    likeButton.titleLabel.textColor = [UIColor blackColor];
+    [likeButton setTitle:@"like" forState:UIControlStateNormal];
+    likeButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    [likeButton addTarget:self action:@selector(likeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    likeButton.backgroundColor = [UIColor grayColor];
+    [cell addSubview:likeButton];
+    
+    UIImageView *line = [[UIImageView alloc]initWithFrame:CGRectMake(0, contentLabel.frame.origin.y + contentLabel.frame.size.height + 9, SCREEN_WIDTH, 1)];
     line.backgroundColor = [UIColor blackColor];
     [cell addSubview:line];
     
     return cell;
+}
+
+- (void)likeButtonClick:(UIButton *)btn
+{
+    if ([btn.titleLabel.text isEqualToString:@"like"]) {
+        if ([[MockNetWorkManager shareManager] like:btn.titleLabel.text]) {
+            [btn setTitle:@"unLike" forState:UIControlStateNormal];
+        }
+    }else{
+        if ([[MockNetWorkManager shareManager] unLike:btn.titleLabel.text]) {
+            [btn setTitle:@"like" forState:UIControlStateNormal];
+        }
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -100,7 +115,7 @@
     NSDictionary *dict = [data objectAtIndex:indexPath.row];
     NSString *content = [dict objectForKey:@"content"];
     UIFont *contentFont = [UIFont systemFontOfSize:15];
-    CGRect rect = [content boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width - 20, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:contentFont} context:nil];
+    CGRect rect = [content boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 20, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:contentFont} context:nil];
     return rect.size.height;
 }
 

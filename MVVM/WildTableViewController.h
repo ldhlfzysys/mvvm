@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WildTableViewController : UITableViewController
+@interface WildTableViewController : BaseTableViewController
 
 @end

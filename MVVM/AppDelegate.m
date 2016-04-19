@@ -25,8 +25,8 @@
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
 
     WildTableViewController *wildVc = [[WildTableViewController alloc]init];
-    
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:wildVc];
+    MvvmTableViewController *mvvmVc = [[MvvmTableViewController alloc]init];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:mvvmVc];
 
     [_window setRootViewController:nav];
     [_window makeKeyAndVisible];

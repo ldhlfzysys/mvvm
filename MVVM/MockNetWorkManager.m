@@ -50,4 +50,14 @@
     return datas;
 }
 
+- (BOOL)like:(NSString *)name
+{
+    return YES;
+}
+
+- (BOOL)unLike:(NSString *)name
+{
+    return YES;
+}
+
 @end

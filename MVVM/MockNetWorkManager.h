@@ -12,4 +12,7 @@
 + (instancetype)shareManager;
 - (NSArray *)loadData;
 - (NSArray *)loadMoreData;
+
+- (BOOL)like:(NSString *)name;
+- (BOOL)unLike:(NSString *)name;
 @end

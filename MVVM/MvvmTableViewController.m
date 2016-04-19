@@ -8,39 +8,42 @@
 
 #import "MvvmTableViewController.h"
 #import "MvvmTableViewCell.h"
-#import "MvvmModel.h"
-#import "MvvmTableViewCell.h"
+#import "MvvmViewModel.h"
 
 @interface MvvmTableViewController ()
-@property (nonatomic,strong)NSMutableArray *datas;
+@property (nonatomic,strong)MvvmViewModel *viewModel;
 @end
 
 @implementation MvvmTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _datas = [[NSMutableArray alloc]init];
-    [self loadDataFromArray:[[MockNetWorkManager shareManager] loadData]];
-    self.tableView.backgroundColor = [UIColor whiteColor];
-    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-    self.title = @"MVC";
-    [self.tableView reloadData];
+    
+    _viewModel = [[MvvmViewModel alloc]init];
+    //ReactiveCocoa,在不同情况下，我们需要用到不同的通知方式，而ReactiveCocoa就是各种方式的一种集合
+    [_viewModel addObserver:self forKeyPath:@"datas" options:NSKeyValueObservingOptionNew context:nil];
+    [_viewModel loadFromNetWork];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RowDidChange:) name:@"RowDidChange" object:nil];
+    
 }
 
-- (void)loadDataFromArray:(NSArray *)arr
+#pragma mark - signal (ReactiveCocoa、(Delegate、Block、Target、KVO、Notification))
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
-    [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSString *name_ = [obj objectForKey:@"name"];
-        NSString *content_ = [obj objectForKey:@"content"];
-        MvvmModel *model = [[MvvmModel alloc]init];
-        model.name = name_;
-        model.content = content_;
-        [_datas addObject:model];
-    }];
+    if ([keyPath isEqualToString:@"datas"]) {
+        [self.tableView reloadData];
+    }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+- (void)RowDidChange:(NSNotification *)noti
+{
+    NSIndexPath *indexpath = [noti object];
+    [self.tableView reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationLeft];
+}
+
+#pragma mark - UserActions
+- (void)loadMore{
+    [_viewModel loadMoreFromNetWork];
 }
 
 #pragma mark - Table view data source
@@ -50,7 +53,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _datas.count;
+    return _viewModel.datas.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -58,27 +61,18 @@
     if (!cell) {
         cell = [[MvvmTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"mCell"];
     }
-    MvvmModel *model = [_datas objectAtIndex:indexPath.row];
-    cell.nameLabel.text = model.name;
-    cell.contentLabel.text = model.content;
-    [cell.contentLabel sizeToFit];
+    [cell setupData:[_viewModel.datas objectAtIndex:indexPath.row]];
+    [cell setLikeBlock:^{
+        [_viewModel likeButtonClick:indexPath];
+    }];
+    
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat height = 10 + 20 + 5 + [self cellHeightFromData:_datas IndexPath:indexPath] + 10;
-    return height;
+    return [MvvmTableViewCell heightOfData:[_viewModel.datas objectAtIndex:indexPath.row]];
 }
 
-//高度计算，展现上属于视图，但也是Model自身的一种属性，放到哪？
-- (CGFloat)cellHeightFromData:(NSArray *)data IndexPath:(NSIndexPath *)indexPath
-{
-    NSDictionary *dict = [data objectAtIndex:indexPath.row];
-    NSString *content = [dict objectForKey:@"content"];
-    UIFont *contentFont = [UIFont systemFontOfSize:15];
-    CGRect rect = [content boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width - 20, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:contentFont} context:nil];
-    return rect.size.height;
-}
 
 @end

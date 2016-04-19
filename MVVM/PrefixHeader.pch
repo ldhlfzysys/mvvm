@@ -15,3 +15,7 @@
 #endif /* PrefixHeader_pch */
 
 #import "MockNetWorkManager.h"
+#import "ProfileViewController.h"
+#import "BaseTableViewController.h"
+#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
+#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)

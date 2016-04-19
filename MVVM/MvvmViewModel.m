@@ -27,17 +27,23 @@
 - (void)loadMoreFromNetWork
 {
      NSArray *datas = [[MockNetWorkManager shareManager] loadMoreData];
+    [self loadDataFromArray:datas];
 }
 
 - (void)loadDataFromArray:(NSArray *)arr
 {
     [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSString *name_ = [obj objectForKey:@"name"];
-        NSString *content_ = [obj objectForKey:@"content"];
         MvvmModel *model = [[MvvmModel alloc]init];
-        model.name = name_;
-        model.content = content_;
-        [_datas addObject:model];
+        [model updateFromDict:obj];
+        [[self mutableArrayValueForKey:@"datas"] addObject:model];
     }];
+}
+
+- (void)likeButtonClick:(NSIndexPath *)indexPath
+{
+    MvvmModel *model = [_datas objectAtIndex:indexPath.row];
+    //发起赞的网络请求、统计、处理接收到的数据。
+    model.likeStatus = !model.likeStatus;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RowDidChange" object:indexPath];
 }
 @end
