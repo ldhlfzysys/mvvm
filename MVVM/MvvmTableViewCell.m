@@ -35,6 +35,7 @@
         _line.backgroundColor = [UIColor blackColor];
         [self addSubview:_line];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
     }
     return self;
 }
@@ -46,16 +47,20 @@
 
 - (void)setupData:(id)object
 {
-    if ([object respondsToSelector:@selector(name)]) {
+    if ([object respondsToSelector:@selector(name)])
+    {
         NSString *name = [object performSelector:@selector(name) withObject:nil];
         _nameLabel.text = name;
-        if ([name isEqualToString:@"我的内容"]) {
+        if ([name isEqualToString:@"我的内容"])
+        {
             _nameLabel.textColor = [UIColor redColor];
-        }else{
+        }else
+        {
             _nameLabel.textColor = [UIColor blackColor];
         }
     }
-    if ([object respondsToSelector:@selector(content)]) {
+    if ([object respondsToSelector:@selector(content)])
+    {
         NSString *content = [object performSelector:@selector(content) withObject:nil];
         _contentLabel.text = content;
         CGRect rect = [content boundingRectWithSize:CGSizeMake(_contentLabel.frame.size.width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:_contentLabel.font} context:nil];
@@ -67,11 +72,14 @@
 
     [_line setNeedsDisplay];
     
-    if ([object respondsToSelector:@selector(likeStatus)]) {
+    if ([object respondsToSelector:@selector(likeStatus)])
+    {
         BOOL status = [object performSelector:@selector(likeStatus) withObject:nil];
-        if (status) {
+        if (status)
+        {
             [_likeButton setTitle:@"unLike" forState:UIControlStateNormal];
-        }else{
+        }else
+        {
             [_likeButton setTitle:@"like" forState:UIControlStateNormal];
         }
     }
@@ -81,7 +89,8 @@
 {
     float height = 10 + 20 + 5 + 10;
     
-    if ([object respondsToSelector:@selector(content)]) {
+    if ([object respondsToSelector:@selector(content)])
+    {
         NSString *content = [object performSelector:@selector(content) withObject:nil];
         CGRect rect = [content boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 20, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil];
         height += rect.size.height;

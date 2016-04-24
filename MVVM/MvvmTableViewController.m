@@ -11,16 +11,18 @@
 #import "MvvmViewModel.h"
 
 @interface MvvmTableViewController ()
-@property (nonatomic,strong)MvvmViewModel *viewModel;
+@property (nonatomic, strong) MvvmViewModel *viewModel;
 @end
 
 @implementation MvvmTableViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     _viewModel = [[MvvmViewModel alloc]init];
-    //ReactiveCocoa,在不同情况下，我们需要用到不同的通知方式，而ReactiveCocoa就是各种方式的一种集合
+    
+    //在不同情况下，我们需要用到不同的通知方式，推荐一个ReactiveCocoa第三方库。
     [_viewModel addObserver:self forKeyPath:@"datas" options:NSKeyValueObservingOptionNew context:nil];
     [_viewModel loadFromNetWork];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RowDidChange:) name:@"RowDidChange" object:nil];
@@ -30,7 +32,8 @@
 #pragma mark - signal (ReactiveCocoa、(Delegate、Block、Target、KVO、Notification))
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
-    if ([keyPath isEqualToString:@"datas"]) {
+    if ([keyPath isEqualToString:@"datas"])
+    {
         [self.tableView reloadData];
     }
 }
@@ -42,23 +45,28 @@
 }
 
 #pragma mark - UserActions
-- (void)loadMore{
+- (void)loadMore
+{
     [_viewModel loadMoreFromNetWork];
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return _viewModel.datas.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     MvvmTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mCell"];
-    if (!cell) {
+    if (!cell)
+    {
         cell = [[MvvmTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"mCell"];
     }
     [cell setupData:[_viewModel.datas objectAtIndex:indexPath.row]];

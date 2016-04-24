@@ -9,6 +9,9 @@
 #import "MvvmModel.h"
 
 @implementation MvvmModel
+@synthesize name;
+@synthesize content;
+@synthesize likeStatus;
 - (void)updateFromDict:(NSDictionary *)dict
 {
     self.name = [dict objectForKey:@"name"];

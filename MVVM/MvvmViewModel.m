@@ -11,7 +11,8 @@
 @implementation MvvmViewModel
 - (instancetype)init
 {
-    if (self = [super init]) {
+    if (self = [super init])
+    {
         _datas = [[NSMutableArray alloc]init];
     }
     return self;

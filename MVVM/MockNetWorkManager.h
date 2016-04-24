@@ -6,6 +6,8 @@
 //  Copyright © 2016年 Dwight. All rights reserved.
 //
 
+
+//这里是一个mock的网络模块单例
 #import <Foundation/Foundation.h>
 
 @interface MockNetWorkManager : NSObject

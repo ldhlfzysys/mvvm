@@ -24,7 +24,9 @@
     // Override point for customization after application launch.
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
 
+    //野生的ViewController
     WildTableViewController *wildVc = [[WildTableViewController alloc]init];
+    //Mvvm
     MvvmTableViewController *mvvmVc = [[MvvmTableViewController alloc]init];
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:mvvmVc];
 

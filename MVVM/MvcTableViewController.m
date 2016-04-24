@@ -24,11 +24,6 @@
 }
 
 //数据加载
-- (void)loadMore{
-    [_datas addObjectsFromArray:[[MockNetWorkManager shareManager] loadMoreData]];
-    [self.tableView reloadData];
-}
-
 - (void)loadDataFromArray:(NSArray *)arr
 {
     [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -37,6 +32,13 @@
         [_datas addObject:model];
     }];
 }
+
+//加载更多
+- (void)loadMore{
+    [_datas addObjectsFromArray:[[MockNetWorkManager shareManager] loadMoreData]];
+    [self.tableView reloadData];
+}
+
 
 #pragma mark - Table view data source
 
@@ -59,17 +61,26 @@
     /*
      视图控制器里的业务逻辑
      */
-    if ([model.name isEqualToString:@"我的内容"]) {
+    if ([model.name isEqualToString:@"我的内容"]) {//这个很low，这就是个业务逻辑
         cell.nameLabel.textColor = [UIColor redColor];
     }
-     
     cell.contentLabel.text = model.content;
     [cell.contentLabel sizeToFit];
+    
+    [cell setLikeBlock:^(UIButton *btn) {
+        if ([btn.titleLabel.text isEqualToString:@"like"]) {
+            [btn setTitle:@"unLike" forState:UIControlStateNormal];
+        }else{
+            [btn setTitle:@"like" forState:UIControlStateNormal];
+        }
+    }];
+    
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //10、20、5这种，是控件间的间距，我们可以提前知道这些数值
     CGFloat height = 10 + 20 + 5 + [self cellHeightFromData:_datas IndexPath:indexPath] + 10;
     return height;
 }

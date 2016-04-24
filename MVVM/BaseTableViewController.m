@@ -19,7 +19,7 @@
     
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-    self.title = @"MVC";
+    self.title = @"MVVM";
     [self.tableView reloadData];
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"加载" style:UIBarButtonItemStyleDone target:self action:@selector(loadMore)];
     self.navigationItem.rightBarButtonItem = item;

@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "ModelProtocol.h"
+
 /*
  存储着姓名和内容的一个Model
 */
